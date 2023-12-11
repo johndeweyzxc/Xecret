@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/secretListFragment">
+
+    <fragment
+        android:id="@+id/secretListFragment"
+        android:name="com.johndeweydev.xecret.view.secretlistfragment.SecretListFragment"
+        android:label="fragment_secret_list"
+        tools:layout="@layout/fragment_secret_list" >
+        <action
+            android:id="@+id/action_secretListFragment_to_secretInfoBottomDialogFragment"
+            app:destination="@id/secretInfoBottomDialogFragment" />
+        <action
+            android:id="@+id/action_secretListFragment_to_createSecretFragment"
+            app:destination="@id/createSecretFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/secretInfoBottomDialogFragment"
+        android:name="com.johndeweydev.xecret.view.secretinfobottomdialogfragment.SecretInfoBottomDialogFragment"
+        android:label="fragment_secret_info_bottom_dialog"
+        tools:layout="@layout/fragment_secret_info_bottom_dialog" >
+    </dialog>
+    <dialog
+        android:id="@+id/createSecretFragment"
+        android:name="com.johndeweydev.xecret.view.createsecretbottomdialogfragment.CreateSecretBottomDialogFragment"
+        android:label="fragment_create_secret"
+        tools:layout="@layout/fragment_create_secret_bottom_dialog" />
+</navigation>
