@@ -112,9 +112,11 @@ open class CreateSecretBottomDialogFragment : BottomSheetDialogFragment() {
     val twoFaPhoneNotEnabled = "$numberOfAssociatedPhoneNumber associations, 2FA is not enabled"
     val twoFaPhoneIsEnabled = "$numberOfAssociatedPhoneNumber associations, 2FA is enabled"
     if (secretsViewModel.selectedSecret?.usingPhoneNumberForTwoFA == true) {
-      binding?.textViewAddPhoneNumberCreateSecretBottomDialog?.text = twoFaPhoneIsEnabled
+      binding?.textViewAddPhoneNumberDescriptionCreateSecretBottomDialog
+        ?.text = twoFaPhoneIsEnabled
     } else {
-      binding?.textViewAddPhoneNumberCreateSecretBottomDialog?.text = twoFaPhoneNotEnabled
+      binding?.textViewAddPhoneNumberDescriptionCreateSecretBottomDialog
+        ?.text = twoFaPhoneNotEnabled
     }
   }
 
