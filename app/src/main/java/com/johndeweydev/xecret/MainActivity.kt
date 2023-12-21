@@ -2,6 +2,7 @@ package com.johndeweydev.xecret
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +24,24 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     binding = ActivityMainBinding.inflate(layoutInflater)
     setSupportActionBar(binding?.toolBarMain)
     setContentView(binding?.root)
+
+    binding?.toolBarMain?.setNavigationOnClickListener {
+      binding?.drawerLayoutMain?.open()
+    }
+    binding?.navigationViewMain?.setNavigationItemSelectedListener(
+      this::navigationDrawerItemSelected)
+  }
+
+  private fun navigationDrawerItemSelected(item: MenuItem): Boolean {
+    binding?.drawerLayoutMain?.close()
+    when (item.itemId) {
+      R.id.allSecretsToolBarDrawerMenu -> secretsViewModel.getAllSecrets()
+      R.id.starredToolBarDrawerMenu -> {
+        TODO("Implementation")
+      }
+      R.id.trashToolBarDrawerMenu -> secretsViewModel.getAllTemporarilyDeletedSecret()
+    }
+    return false
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {

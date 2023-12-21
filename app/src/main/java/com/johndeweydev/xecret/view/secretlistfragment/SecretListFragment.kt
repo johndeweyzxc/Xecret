@@ -125,8 +125,8 @@ class SecretListFragment : Fragment() {
 
             // Deletes the secret data in the database
             Log.d("dev-log", "SecretListFragment.createSnackbarCallbackForDeleting: " +
-                    "Deleting ${swipedSecretData?.name} in the database")
-            secretsViewModel.deleteSecret(swipedSecretData)
+                    "Temporarily deleting ${swipedSecretData?.name}")
+            secretsViewModel.temporaryDeleteSecret(swipedSecretData)
             swipedSecretData = null
           }
         }
@@ -179,6 +179,17 @@ class SecretListFragment : Fragment() {
       secretsViewModel.getSecrets().value = null
     }
     secretsViewModel.getSecrets().observe(viewLifecycleOwner, secretsObserver)
+    val showNoSecretsFoundIndicatorObserver = Observer<Boolean> {
+      if (it) {
+        binding?.imageViewSecretList?.visibility = View.VISIBLE
+        binding?.textViewNoSecretsFoundSecretList?.visibility = View.VISIBLE
+      } else {
+        binding?.imageViewSecretList?.visibility = View.GONE
+        binding?.textViewNoSecretsFoundSecretList?.visibility = View.GONE
+      }
+    }
+    secretsViewModel.getShowNoSecretsFoundIndicator().observe(viewLifecycleOwner,
+      showNoSecretsFoundIndicatorObserver)
   }
 
   override fun onDestroyView() {

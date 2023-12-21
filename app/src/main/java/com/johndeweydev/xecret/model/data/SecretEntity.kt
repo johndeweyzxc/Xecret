@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
 
+// TODO Implement: Add isStared attribute
+
 @Entity(tableName = "secrets")
 data class SecretEntity (
   @PrimaryKey(autoGenerate = true) val uid: Int,

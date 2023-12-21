@@ -28,6 +28,8 @@ class SecretsViewModel: ViewModel() {
   private val newlyAddedSecret = MutableLiveData<SecretData?>()
   private val newlyUpdatedSecret = MutableLiveData<SecretData?>()
 
+  private val showNoSecretsFoundIndicator = MutableLiveData<Boolean>(true)
+
   init {
     Log.w("dev-log", "SecretsViewModel: Created new instance")
     val databaseInstance = SecretsSingleton.getInstance()
@@ -63,6 +65,10 @@ class SecretsViewModel: ViewModel() {
     return newlyUpdatedSecret
   }
 
+  fun getShowNoSecretsFoundIndicator(): MutableLiveData<Boolean> {
+    return showNoSecretsFoundIndicator
+  }
+
   fun getAllSecrets() {
     viewModelScope.launch(Dispatchers.IO) {
       val result = async {
@@ -74,6 +80,7 @@ class SecretsViewModel: ViewModel() {
         return@launch
       }
       secrets.postValue(result)
+      isSecretsNullOrEmpty(result)
     }
   }
 
@@ -117,6 +124,31 @@ class SecretsViewModel: ViewModel() {
     return "None"
   }
 
+  fun temporaryDeleteSecret(secretData: SecretData?) {
+    viewModelScope.launch(Dispatchers.IO) {
+      if (secretData != null) {
+        secretsRepo?.temporaryDeleteSecret(secretData)
+      } else {
+        Log.e("dev-log", "SecretViewModel.temporaryDeleteSecret: secretData is null")
+      }
+    }
+  }
+
+  fun getAllTemporarilyDeletedSecret() {
+    viewModelScope.launch(Dispatchers.IO) {
+      val result = async {
+        secretsRepo?.getAllTemporarilyDeletedSecret()
+      }.await()
+      if (result == null) {
+        Log.w("dev-log", "SecretsViewModel.getAllTemporarilyDeletedSecret: Got null " +
+                "result from the repository")
+        return@launch
+      }
+      secrets.postValue(result)
+      isSecretsNullOrEmpty(result)
+    }
+  }
+
   fun deleteSecret(secretData: SecretData?) {
     viewModelScope.launch(Dispatchers.IO) {
       if (secretData != null) {
@@ -138,6 +170,18 @@ class SecretsViewModel: ViewModel() {
         return@launch
       }
       secrets.postValue(result)
+      isSecretsNullOrEmpty(result)
+    }
+  }
+
+  private fun isSecretsNullOrEmpty(result: ArrayList<SecretData>?) {
+    if (result.isNullOrEmpty()) {
+      Log.d("dev-log", "SecretsViewModel.isSecretsNullOrEmpty: secrets is empty or null")
+      showNoSecretsFoundIndicator.postValue(true)
+    } else {
+      Log.d("dev-log", "SecretsViewModel.isSecretsNullOrEmpty: secrets is not empty or " +
+              "null")
+      showNoSecretsFoundIndicator.postValue(false)
     }
   }
 }

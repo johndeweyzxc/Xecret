@@ -32,4 +32,8 @@
     <style name="ImageIconTheme">
         <item name="tint">@color/md_theme_dark_tertiary</item>
     </style>
+    
+    <style name="ImageIconUtilityTheme">
+        <item name="tint">@color/md_theme_dark_onSurface</item>
+    </style>
 </resources>

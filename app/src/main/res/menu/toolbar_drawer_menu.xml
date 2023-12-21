@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/allSecretsToolBarDrawerMenu"
+        android:title="All Secrets"
+        android:icon="@drawable/ic_drawer_all_secrets_24" />
+    <item
+        android:id="@+id/starredToolBarDrawerMenu"
+        android:title="Starred"
+        android:icon="@drawable/ic_drawer_starred_24"/>
+    <item
+        android:id="@+id/trashToolBarDrawerMenu"
+        android:title="Trash"
+        android:icon="@drawable/ic_drawer_trash_24"/>
+</menu>

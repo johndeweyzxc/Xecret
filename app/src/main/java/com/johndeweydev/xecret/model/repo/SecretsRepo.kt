@@ -28,10 +28,21 @@ class SecretsRepo(private val secretsDao: SecretsDao) {
 
   fun updateSecret(secretData: SecretData) {
     val secretEntity = convertFromDataToEntity(secretData)
-    Log.d("dev-log", "SecretsRepo.updateSecret: Updating secret ${secretEntity.name}" +
-            ", key is ${secretEntity.uid}")
+    Log.d("dev-log", "SecretsRepo.updateSecret: Updating secret ${secretEntity.name}")
     secretEntity.updatedAt = Date()
     secretsDao.updateSecret(secretEntity)
+  }
+
+  fun temporaryDeleteSecret(secretData: SecretData) {
+    val secretEntity = convertFromDataToEntity(secretData)
+    Log.d("dev-log", "SecretsRepo.temporaryDeleteSecret: Temporarily deleting secret " +
+            secretEntity.name)
+    secretEntity.deletedAt = Date()
+    secretsDao.updateSecret(secretEntity)
+  }
+
+  fun getAllTemporarilyDeletedSecret(): ArrayList<SecretData> {
+    return convertFromEntitiesToData(ArrayList(secretsDao.getAllTemporaryDeletedSecret()))
   }
 
   fun deleteSecret(secretData: SecretData) {
