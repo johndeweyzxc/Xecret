@@ -137,10 +137,19 @@ class SecretInfoBottomDialogFragment : CreateSecretBottomDialogFragment() {
       R.layout.dialog_metadata, null)
     val textViewCreated = metadataDialog.findViewById<TextView>(R.id.textViewCreatedValueMetadata)
     val textViewUpdated = metadataDialog.findViewById<TextView>(R.id.textViewUpdatedValueMetadata)
+    val textViewDeleted = metadataDialog.findViewById<TextView>(R.id.textViewDeletedValueMetadata)
 
     val dateFormat = SimpleDateFormat("MMMM. d, yyyy - hh:mm:ss", Locale.getDefault())
     textViewCreated.text = secretsViewModel.selectedSecret?.createdAt?.let { dateFormat.format(it) }
     textViewUpdated.text = secretsViewModel.selectedSecret?.updatedAt?.let { dateFormat.format(it) }
+
+    if (secretsViewModel.selectedSecret?.deletedAt != null) {
+      textViewDeleted.text = secretsViewModel.selectedSecret?.deletedAt?.let {
+        dateFormat.format(it)
+      }
+    } else {
+      textViewDeleted.text = ""
+    }
 
     MaterialAlertDialogBuilder(requireActivity())
       .setTitle("Metadata")

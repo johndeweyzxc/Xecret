@@ -28,7 +28,9 @@ class SecretsViewModel: ViewModel() {
   private val newlyAddedSecret = MutableLiveData<SecretData?>()
   private val newlyUpdatedSecret = MutableLiveData<SecretData?>()
 
-  private val showNoSecretsFoundIndicator = MutableLiveData<Boolean>(true)
+  private val showNoSecretsFoundIndicator = MutableLiveData(true)
+
+  var filterOutDeletedSecret = false
 
   init {
     Log.w("dev-log", "SecretsViewModel: Created new instance")
@@ -69,10 +71,11 @@ class SecretsViewModel: ViewModel() {
     return showNoSecretsFoundIndicator
   }
 
-  fun getAllSecrets() {
+  fun getAllNonTemporarilyDeletedSecrets() {
+    filterOutDeletedSecret = true
     viewModelScope.launch(Dispatchers.IO) {
       val result = async {
-        secretsRepo?.getAllSecrets()
+        secretsRepo?.getAllNonTemporarilyDeletedSecrets()
       }.await()
       if (result == null) {
         Log.w("dev-log", "SecretsViewModel.getAllSecrets: Got null result from the " +
@@ -105,6 +108,8 @@ class SecretsViewModel: ViewModel() {
   }
 
   fun updateSecret(): String {
+    // TODO: Implement realtime update to the updatedAt attribute of the secret data item in the
+    //  recycler view list
     if (selectedSecret?.equals(selectedSecretCopy) == true) {
       return "No changes have been made"
     } else if (selectedSecret?.name?.isEmpty() == true) {
@@ -135,6 +140,7 @@ class SecretsViewModel: ViewModel() {
   }
 
   fun getAllTemporarilyDeletedSecret() {
+    filterOutDeletedSecret = false
     viewModelScope.launch(Dispatchers.IO) {
       val result = async {
         secretsRepo?.getAllTemporarilyDeletedSecret()
@@ -176,11 +182,8 @@ class SecretsViewModel: ViewModel() {
 
   private fun isSecretsNullOrEmpty(result: ArrayList<SecretData>?) {
     if (result.isNullOrEmpty()) {
-      Log.d("dev-log", "SecretsViewModel.isSecretsNullOrEmpty: secrets is empty or null")
       showNoSecretsFoundIndicator.postValue(true)
     } else {
-      Log.d("dev-log", "SecretsViewModel.isSecretsNullOrEmpty: secrets is not empty or " +
-              "null")
       showNoSecretsFoundIndicator.postValue(false)
     }
   }

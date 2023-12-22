@@ -5,6 +5,7 @@ import java.util.Date
 data class SecretData (
   var uid: Int,
 
+  var flag: String,
   var name: String,
   var description: String,
   var notes: String,
@@ -27,6 +28,7 @@ data class SecretData (
   @Suppress("UNCHECKED_CAST")
   public override fun clone() = SecretData(
     uid,
+    flag,
     name,
     description,
     notes,

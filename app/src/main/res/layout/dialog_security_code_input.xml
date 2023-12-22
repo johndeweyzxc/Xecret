@@ -19,7 +19,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextDialogSecurityCodeInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
+            android:maxLines="1"
+            android:lines="1"
+            android:maxLength="64"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -53,13 +53,26 @@ class SecretListRVAdapter(private val event: Event):
     notifyItemInserted(secretsList.size - 1)
   }
 
-  fun addListOfSecrets(secrets: ArrayList<SecretData>?) {
+  fun addListOfSecrets(secrets: ArrayList<SecretData>?, filterOutDeletedSecret: Boolean) {
     val currentSize = secretsList.size
     secretsList.clear()
     notifyItemRangeRemoved(0, currentSize)
 
-    if (secrets != null) {
-      secretsList.addAll(secrets)
+    if (secrets == null) {
+      return
+    }
+
+    if (filterOutDeletedSecret) {
+      // Remove temporarily deleted secret by only including secrets where the deletedAt attribute
+      // is null
+      val filteredOutTemporarilyDeletedSecret = secrets.filter { it.deletedAt == null }
+      secretsList.addAll(filteredOutTemporarilyDeletedSecret)
+      notifyItemRangeInserted(0, secretsList.size)
+    } else {
+      // Remove non temporarily deleted secret by only including secrets where the deletedAt
+      // attribute has a date object
+      val filteredOutNonTemporarilyDeletedSecret = secrets.filter { it.deletedAt != null }
+      secretsList.addAll(filteredOutNonTemporarilyDeletedSecret)
       notifyItemRangeInserted(0, secretsList.size)
     }
   }

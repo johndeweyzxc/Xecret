@@ -67,7 +67,7 @@ open class CreateSecretBottomDialogFragment : BottomSheetDialogFragment() {
     }
 
     secretsViewModel.preUploadingSecret = SecretData(
-      uid = 0, name = "", description = "", notes = "", userName = "", password = "",
+      uid = 0, flag = "", name = "", description = "", notes = "", userName = "", password = "",
       extraPasswordsOrSecurityCodes = ArrayList(), associatedEmails = ArrayList(),
       usingEmailForTwoFA = false, associatedPhoneNumbers = ArrayList(),
       usingPhoneNumberForTwoFA = false, extras = "", createdAt = Date(), updatedAt = Date(),

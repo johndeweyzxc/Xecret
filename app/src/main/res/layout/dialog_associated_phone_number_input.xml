@@ -20,7 +20,11 @@
             android:id="@+id/textInputEditTextDialogPhoneNumberInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:inputType="number"
+            android:fontFamily="@font/manrope_medium"
+            android:lines="1"
+            android:maxLines="1"
+            android:maxLength="12"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

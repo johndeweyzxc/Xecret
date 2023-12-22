@@ -20,7 +20,10 @@
             android:id="@+id/textInputEditTextDialogExtraInfoInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="5" />
+            android:fontFamily="@font/manrope_medium"
+            android:lines="5"
+            android:maxLines="5"
+            android:maxLength="256"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

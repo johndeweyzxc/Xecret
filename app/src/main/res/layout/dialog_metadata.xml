@@ -9,38 +9,59 @@
         android:id="@+id/textViewCreatedMetadata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/manrope_bold"
         android:text="Created: "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewCreatedValueMetadata"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/manrope_semibold"
         android:text="January. 1, 2003 - 8:30:25"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewCreatedMetadata"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewCreatedMetadata"
-        app:layout_constraintTop_toTopOf="@+id/textViewCreatedMetadata" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedMetadata" />
 
     <TextView
         android:id="@+id/textViewUpdatedMetadata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/manrope_bold"
         android:text="Modified: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedMetadata" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedValueMetadata" />
 
     <TextView
         android:id="@+id/textViewUpdatedValueMetadata"
-        android:layout_width="0dp"
+        android:layout_width="289dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/manrope_semibold"
         android:text="January. 2, 2003 - 8:30:25"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewUpdatedMetadata"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewUpdatedMetadata"
-        app:layout_constraintTop_toTopOf="@+id/textViewUpdatedMetadata" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUpdatedMetadata" />
+
+    <TextView
+        android:id="@+id/textViewDeletedMetadata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="Deleted: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUpdatedValueMetadata" />
+
+    <TextView
+        android:id="@+id/textViewDeletedValueMetadata"
+        android:layout_width="294dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/manrope_semibold"
+        android:text="January. 3, 2003 - 8:30:25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDeletedMetadata" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

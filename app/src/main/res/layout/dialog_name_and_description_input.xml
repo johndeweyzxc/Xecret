@@ -24,7 +24,11 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextDialogNameInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:fontFamily="@font/manrope_medium"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:lines="1"
+                android:maxLength="128"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,7 +48,10 @@
                 android:id="@+id/textInputEditTextDialogDescriptionInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="5" />
+                android:fontFamily="@font/manrope_medium"
+                android:maxLength="256"
+                android:lines="5"
+                android:maxLines="5"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

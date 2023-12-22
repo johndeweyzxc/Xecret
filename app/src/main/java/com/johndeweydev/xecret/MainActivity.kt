@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
   private fun navigationDrawerItemSelected(item: MenuItem): Boolean {
     binding?.drawerLayoutMain?.close()
     when (item.itemId) {
-      R.id.allSecretsToolBarDrawerMenu -> secretsViewModel.getAllSecrets()
+      R.id.allSecretsToolBarDrawerMenu -> secretsViewModel.getAllNonTemporarilyDeletedSecrets()
       R.id.starredToolBarDrawerMenu -> {
         TODO("Implementation")
       }

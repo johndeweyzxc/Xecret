@@ -8,14 +8,13 @@ import androidx.room.Query
 import androidx.room.Update
 import com.johndeweydev.xecret.model.data.SecretEntity
 
-// TODO Implement: Starred functionality, permanent deletion functionality, searching functionality
-//  for deleted and non deleted secrets
+// TODO Implement: Starred functionality, permanent deletion functionality
 
 @Dao
 interface SecretsDao {
 
   @Query("SELECT * FROM secrets WHERE deletedAt is NULL")
-  fun getAllSecrets(): List<SecretEntity>
+  fun getAllNonTemporarilyDeletedSecrets(): List<SecretEntity>
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   fun addNewSecret(secretEntity: SecretEntity)
   @Update

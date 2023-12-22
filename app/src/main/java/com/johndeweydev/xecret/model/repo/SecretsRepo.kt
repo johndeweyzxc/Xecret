@@ -13,8 +13,8 @@ class SecretsRepo(private val secretsDao: SecretsDao) {
     Log.w("dev-log", "SecretsRepo: Created new instance")
   }
 
-  fun getAllSecrets(): ArrayList<SecretData> {
-    return convertFromEntitiesToData(ArrayList(secretsDao.getAllSecrets()))
+  fun getAllNonTemporarilyDeletedSecrets(): ArrayList<SecretData> {
+    return convertFromEntitiesToData(ArrayList(secretsDao.getAllNonTemporarilyDeletedSecrets()))
   }
 
   fun addNewSecret(secretData: SecretData) {
@@ -63,6 +63,7 @@ class SecretsRepo(private val secretsDao: SecretsDao) {
     entities.forEach {
       val secretData = SecretData(
         uid = it.uid,
+        flag = it.flag,
         name = it.name,
         description = it.description,
         notes = it.notes,
@@ -85,6 +86,7 @@ class SecretsRepo(private val secretsDao: SecretsDao) {
   private fun convertFromDataToEntity(secretData: SecretData): SecretEntity {
     return SecretEntity(
       uid = secretData.uid,
+      flag = secretData.flag,
       name = secretData.name,
       description = secretData.description,
       notes = secretData.notes,

@@ -49,7 +49,7 @@ class SecretListFragment : Fragment() {
 
     setupRecyclerView()
     setupObservers()
-    secretsViewModel.getAllSecrets()
+    secretsViewModel.getAllNonTemporarilyDeletedSecrets()
   }
 
   private fun setupRecyclerView() {
@@ -175,7 +175,7 @@ class SecretListFragment : Fragment() {
       if (it == null) {
         return@Observer
       }
-      secretListRVAdapter?.addListOfSecrets(it)
+      secretListRVAdapter?.addListOfSecrets(it, secretsViewModel.filterOutDeletedSecret)
       secretsViewModel.getSecrets().value = null
     }
     secretsViewModel.getSecrets().observe(viewLifecycleOwner, secretsObserver)

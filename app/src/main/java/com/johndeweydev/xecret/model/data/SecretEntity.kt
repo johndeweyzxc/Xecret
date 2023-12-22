@@ -5,12 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
 
-// TODO Implement: Add isStared attribute
-
 @Entity(tableName = "secrets")
 data class SecretEntity (
   @PrimaryKey(autoGenerate = true) val uid: Int,
 
+  @ColumnInfo(name = "flag") val flag: String,
   @ColumnInfo(name = "name") val name: String,
   @ColumnInfo(name = "description") val description: String,
   @ColumnInfo(name = "notes") val notes: String,
