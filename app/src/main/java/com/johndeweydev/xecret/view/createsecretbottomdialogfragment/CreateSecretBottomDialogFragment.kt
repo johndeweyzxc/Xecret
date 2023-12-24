@@ -16,6 +16,7 @@ import com.johndeweydev.xecret.databinding.FragmentCreateSecretBottomDialogBindi
 import com.johndeweydev.xecret.model.data.SecretData
 import com.johndeweydev.xecret.viewmodel.SecretsViewModel
 import java.util.Date
+import java.util.UUID
 
 open class CreateSecretBottomDialogFragment : BottomSheetDialogFragment() {
 
@@ -67,11 +68,11 @@ open class CreateSecretBottomDialogFragment : BottomSheetDialogFragment() {
     }
 
     secretsViewModel.preUploadingSecret = SecretData(
-      uid = 0, flag = "", name = "", description = "", notes = "", userName = "", password = "",
-      extraPasswordsOrSecurityCodes = ArrayList(), associatedEmails = ArrayList(),
-      usingEmailForTwoFA = false, associatedPhoneNumbers = ArrayList(),
-      usingPhoneNumberForTwoFA = false, extras = "", createdAt = Date(), updatedAt = Date(),
-      deletedAt = null)
+      uid = UUID.randomUUID().toString(), flag = "", name = "", description = "", notes = "",
+      userName = "", password = "", extraPasswordsOrSecurityCodes = ArrayList(),
+      associatedEmails = ArrayList(), usingEmailForTwoFA = false,
+      associatedPhoneNumbers = ArrayList(), usingPhoneNumberForTwoFA = false, extras = "",
+      createdAt = Date(), updatedAt = Date(), deletedAt = null)
     secretsViewModel.preUploadingSecretCopy = secretsViewModel.preUploadingSecret?.clone()
     setupObservers()
   }

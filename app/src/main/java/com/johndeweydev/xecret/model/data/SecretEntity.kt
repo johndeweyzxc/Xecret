@@ -7,7 +7,7 @@ import java.util.Date
 
 @Entity(tableName = "secrets")
 data class SecretEntity (
-  @PrimaryKey(autoGenerate = true) val uid: Int,
+  @PrimaryKey val uid: String,
 
   @ColumnInfo(name = "flag") val flag: String,
   @ColumnInfo(name = "name") val name: String,

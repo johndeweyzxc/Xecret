@@ -108,8 +108,6 @@ class SecretsViewModel: ViewModel() {
   }
 
   fun updateSecret(): String {
-    // TODO: Implement realtime update to the updatedAt attribute of the secret data item in the
-    //  recycler view list
     if (selectedSecret?.equals(selectedSecretCopy) == true) {
       return "No changes have been made"
     } else if (selectedSecret?.name?.isEmpty() == true) {
@@ -120,7 +118,8 @@ class SecretsViewModel: ViewModel() {
 
     viewModelScope.launch(Dispatchers.IO) {
       if (selectedSecret != null) {
-        secretsRepo?.updateSecret(selectedSecret!!)
+        val date = secretsRepo?.updateSecret(selectedSecret!!)
+        selectedSecret?.updatedAt = date
         newlyUpdatedSecret.postValue(selectedSecret)
       } else {
         Log.e("dev-log", "SecretViewModel.updateSecret: selectedSecret is null")

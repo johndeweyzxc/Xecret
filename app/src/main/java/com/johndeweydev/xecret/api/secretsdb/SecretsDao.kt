@@ -14,15 +14,15 @@ import com.johndeweydev.xecret.model.data.SecretEntity
 interface SecretsDao {
 
   @Query("SELECT * FROM secrets WHERE deletedAt is NULL")
-  fun getAllNonTemporarilyDeletedSecrets(): List<SecretEntity>
+  suspend fun getAllNonTemporarilyDeletedSecrets(): List<SecretEntity>
   @Insert(onConflict = OnConflictStrategy.IGNORE)
-  fun addNewSecret(secretEntity: SecretEntity)
+  suspend fun addNewSecret(secretEntity: SecretEntity)
   @Update
-  fun updateSecret(secretEntity: SecretEntity)
+  suspend fun updateSecret(secretEntity: SecretEntity)
   @Delete
-  fun deleteSecret(secretEntity: SecretEntity)
+  suspend fun deleteSecret(secretEntity: SecretEntity)
   @Query("SELECT * FROM secrets WHERE name LIKE :searchQuery OR description LIKE :searchQuery")
-  fun searchDatabase(searchQuery: String): List<SecretEntity>
+  suspend fun searchDatabase(searchQuery: String): List<SecretEntity>
   @Query("SELECT * FROM secrets WHERE deletedAt is not NULL")
-  fun getAllTemporaryDeletedSecret(): List<SecretEntity>
+  suspend fun getAllTemporaryDeletedSecret(): List<SecretEntity>
 }

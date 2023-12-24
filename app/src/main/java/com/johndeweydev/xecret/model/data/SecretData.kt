@@ -3,7 +3,7 @@ package com.johndeweydev.xecret.model.data
 import java.util.Date
 
 data class SecretData (
-  var uid: Int,
+  var uid: String,
 
   var flag: String,
   var name: String,

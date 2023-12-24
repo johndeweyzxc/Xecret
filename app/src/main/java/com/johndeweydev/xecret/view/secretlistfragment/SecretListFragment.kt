@@ -43,6 +43,8 @@ class SecretListFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
 
     binding?.floatingActionButtonSecretList?.setOnClickListener {
+      binding?.imageViewSecretList?.visibility = View.GONE
+      binding?.textViewNoSecretsFoundSecretList?.visibility = View.GONE
       Navigation.findNavController(it).navigate(
         R.id.action_secretListFragment_to_createSecretFragment)
     }
@@ -123,7 +125,7 @@ class SecretListFragment : Fragment() {
               return
             }
 
-            // Deletes the secret data in the database
+            // Temporarily deletes the secret data in the database
             Log.d("dev-log", "SecretListFragment.createSnackbarCallbackForDeleting: " +
                     "Temporarily deleting ${swipedSecretData?.name}")
             secretsViewModel.temporaryDeleteSecret(swipedSecretData)

@@ -13,45 +13,49 @@ class SecretsRepo(private val secretsDao: SecretsDao) {
     Log.w("dev-log", "SecretsRepo: Created new instance")
   }
 
-  fun getAllNonTemporarilyDeletedSecrets(): ArrayList<SecretData> {
+  suspend fun getAllNonTemporarilyDeletedSecrets(): ArrayList<SecretData> {
     return convertFromEntitiesToData(ArrayList(secretsDao.getAllNonTemporarilyDeletedSecrets()))
   }
 
-  fun addNewSecret(secretData: SecretData) {
-
+  suspend fun addNewSecret(secretData: SecretData) {
     val secretEntity = convertFromDataToEntity(secretData)
-    Log.d("dev-log", "SecretsRepo.addNewSecret: Adding new secret ${secretEntity.name}")
+    Log.d("dev-log", "SecretsRepo.addNewSecret: Adding new secret [${secretEntity.name}]" +
+            ", id is [${secretEntity.uid}]")
     secretEntity.createdAt = Date()
     secretEntity.updatedAt = Date()
     secretsDao.addNewSecret(secretEntity)
   }
 
-  fun updateSecret(secretData: SecretData) {
+  suspend fun updateSecret(secretData: SecretData): Date {
     val secretEntity = convertFromDataToEntity(secretData)
-    Log.d("dev-log", "SecretsRepo.updateSecret: Updating secret ${secretEntity.name}")
-    secretEntity.updatedAt = Date()
+    Log.d("dev-log", "SecretsRepo.updateSecret: Updating secret [${secretEntity.name}]" +
+            ", id is [${secretEntity.uid}]")
+    val date = Date()
+    secretEntity.updatedAt = date
     secretsDao.updateSecret(secretEntity)
+    return date
   }
 
-  fun temporaryDeleteSecret(secretData: SecretData) {
+  suspend fun temporaryDeleteSecret(secretData: SecretData) {
     val secretEntity = convertFromDataToEntity(secretData)
     Log.d("dev-log", "SecretsRepo.temporaryDeleteSecret: Temporarily deleting secret " +
-            secretEntity.name)
+            "[${secretEntity.name}], id is [${secretEntity.uid}]")
     secretEntity.deletedAt = Date()
     secretsDao.updateSecret(secretEntity)
   }
 
-  fun getAllTemporarilyDeletedSecret(): ArrayList<SecretData> {
+  suspend fun getAllTemporarilyDeletedSecret(): ArrayList<SecretData> {
     return convertFromEntitiesToData(ArrayList(secretsDao.getAllTemporaryDeletedSecret()))
   }
 
-  fun deleteSecret(secretData: SecretData) {
+  suspend fun deleteSecret(secretData: SecretData) {
     val secretEntity = convertFromDataToEntity(secretData)
-    Log.d("dev-log", "SecretsRepo.deleteSecret: Deleting secret ${secretEntity.name}")
+    Log.d("dev-log", "SecretsRepo.deleteSecret: Deleting secret [${secretEntity.name}]" +
+            ", id is [${secretEntity.uid}]")
     secretsDao.deleteSecret(secretEntity)
   }
 
-  fun searchDatabase(searchQuery: String): ArrayList<SecretData> {
+  suspend fun searchDatabase(searchQuery: String): ArrayList<SecretData> {
     return convertFromEntitiesToData(ArrayList(secretsDao.searchDatabase(searchQuery)))
   }
 
